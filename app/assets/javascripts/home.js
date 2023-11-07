@@ -37,6 +37,12 @@
         },
         complete: function() {
           $prog.hide();
+        },
+        error: function(xhr) {
+          if (xhr.status === 422) {
+            var error = JSON.parse(xhr.responseText);
+            alert(error.error); // 这将显示错误消息
+          }
         }
       })
   
