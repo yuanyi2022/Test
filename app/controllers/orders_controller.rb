@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
+
   def index
-    @orders = Order.by_user_uuid(session[:user_uuid])
+    @orders = Order.by_user_uuid(current_user.uuid)
     .order("id desc").includes([:ticket => [:main_ticket_image]])
   end
 
@@ -9,14 +10,14 @@ class OrdersController < ApplicationController
     stock = stock <= 0 ? 1 : stock
     @ticket = Ticket.find(params[:ticket_id])
     @order = Order.create_or_update!({
-      user_uuid: session[:user_uuid],
+      user_uuid: current_user.uuid,
       ticket_id: params[:ticket_id],
       stock: stock
     })
     render layout: false
   end
   def update
-    @order = Order.by_user_uuid(session[:user_uuid])
+    @order = Order.by_user_uuid(current_user.uuid)
     .where(id: params[:id]).first
     if @order
       stock = params[:stock].to_i
@@ -28,7 +29,7 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    @order = Order.by_user_uuid(session[:user_uuid])
+    @order = Order.by_user_uuid(current_user.uuid)
     .where(id: params[:id]).first
     @order.destroy if @order
 
