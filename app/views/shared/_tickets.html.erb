@@ -1,16 +1,23 @@
 <div class="row">
   <% @tickets.each do |ticket| %>
     <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-      <%= image_tag ticket.main_ticket_image.image.variant(resize_to_limit: [300,nil]) if ticket.main_ticket_image && ticket.main_ticket_image.image.attached? %>
-        <div class="caption">
-        <h4><%= link_to ticket.movie_name, ticket_path(ticket) %></h4>
-          <p><strong>¥<%= ticket.price %></p>
-          <p><%= show_add_to_order ticket, html_class:"btn-xs"%></p>
+      <div class="card">
+        <div class="card-img-top img-fluid img-wrapper" style="overflow: hidden; height: 200px;">
+          <%= image_tag(ticket.main_ticket_image.image.variant(resize_to_limit: [300, 200]), class: "img-fluid") if ticket.main_ticket_image && ticket.main_ticket_image.image.attached? %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to ticket.movie_name, ticket_path(ticket) %></h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-text"><strong>¥<%= ticket.price %></strong></p>
+            <p class="card-text">库存: <%= ticket.stock %></p>
+          </div>
+          <div class="mt-2">
+            <%= show_add_to_order(ticket, html_class: "btn btn-primary btn-sm") %>
+          </div>
         </div>
       </div>
     </div>
-  <% end -%>
+  <% end %>
 </div>
 
 <%= paginate @tickets %>

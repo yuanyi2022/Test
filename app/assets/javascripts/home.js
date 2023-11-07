@@ -1,16 +1,23 @@
 (function() {
 
-    // 购物车
+
+    // 绑定事件到继续购物按钮
+    $('#continue-shopping').on('click', function() {
+      // 刷新页面
+      location.reload();
+    });
+
+  // 购物车
     $('.add-to-cart-btn').on('click', function() {
       var $this = $(this),
           $stock = $('input[name="stock"]'),
           $prog = $this.find('i');
-  
+
       if ($stock.length > 0 && parseInt($stock.val()) <= 0) {
         alert("购买数量至少为 1");
         return false;
       }
-  
+
       $.ajax({
         url: $this.attr('href'),
         method: 'post',
@@ -31,7 +38,6 @@
           if ($('#order_modal').length > 0) {
             $('#order_modal').remove();
           }
-  
           $('body').append(data);
           $('#order_modal').modal();
         },
@@ -45,9 +51,9 @@
           }
         }
       })
-  
+
       return false;
     })
-  
+
   })()
   

@@ -13,7 +13,7 @@ class Ticket < ApplicationRecord
   validates :description, presence: { message: "描述不能为空" }
   before_create :set_uuid
   has_many :ticket_images, -> {order(weight: 'desc')}, dependent: :destroy
-  has_one :main_ticket_image, -> { order(weight: 'desc') },
+  has_one :main_ticket_image, -> { order(weight: 'desc',created_at: 'desc') },
   class_name: 'TicketImage'
   scope :onshelf, -> {where(status: Status::On)}
   module Status
