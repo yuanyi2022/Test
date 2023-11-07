@@ -9,7 +9,7 @@
       <% @ticket.ticket_images.each do |ticket_image| %>
         <div class="col-xs-6 col-md-3">
           <a href="#" class="thumbnail detail">
-          <%= image_tag ticket_image.image.variant(resize: "300x300") %>
+          <%= image_tag ticket_image.image.variant(resize_to_limit: [300,nil]) %>
           </a>
         </div>
       <% end -%>

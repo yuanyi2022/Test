@@ -21,15 +21,15 @@ class Ticket < ApplicationRecord
     Off = 'off'
   end
   def small_image
-    ticket_images.first.image.variant(resize: "60x60^").processed if ticket_images.attached?
+    ticket_images.first.image.variant(resize_to_limit: [60,60]).processed if ticket_images.attached?
   end
 
   def middle_image
-    ticket_images.first.variant(resize: "200x200^").processed if ticket_images.attached?
+    ticket_images.first.variant(resize_to_limit: [200,nil]).processed if ticket_images.attached?
   end
 
   def big_image
-    ticket_images.first.variant(resize: "960x").processed if ticket_images.attached?
+    ticket_images.first.variant(resize_to_limit: [960,nil]).processed if ticket_images.attached?
   end
   private
   def set_uuid

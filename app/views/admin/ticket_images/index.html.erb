@@ -24,7 +24,7 @@
       <tr>
         <td><%= ticket_image.id %></td>
         <td>
-        <%= image_tag ticket_image.image.variant(resize: "60x60^") if ticket_image.image.attached? %>
+        <%= image_tag ticket_image.image.variant(resize_to_limit: [60,nil]) if ticket_image.image.attached? %>
         </td>
 
         <td>
