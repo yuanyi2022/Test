@@ -1,0 +1,16 @@
+<div class="row">
+  <% @tickets.each do |ticket| %>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+      <%= image_tag ticket.main_ticket_image.image.variant(resize: "300x300^") if ticket.main_ticket_image && ticket.main_ticket_image.image.attached? %>
+        <div class="caption">
+        <h4><%= link_to ticket.movie_name, ticket_path(ticket) %></h4>
+          <p><strong>¥<%= ticket.price %></p>
+          <p><%= show_add_to_order ticket, html_class:"btn-xs"%></p>
+        </div>
+      </div>
+    </div>
+  <% end -%>
+</div>
+
+<%= paginate @tickets %>

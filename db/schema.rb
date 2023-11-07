@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_30_173624) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_06_013258) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,12 +39,24 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_30_173624) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "images", force: :cascade do |t|
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "user_uuid"
+    t.integer "ticket_id"
+    t.integer "stock"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["user_uuid"], name: "index_orders_on_user_uuid"
+  end
+
+  create_table "ticket_images", force: :cascade do |t|
     t.integer "ticket_id", null: false
     t.integer "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ticket_id"], name: "index_images_on_ticket_id"
+    t.index ["ticket_id", "weight"], name: "index_ticket_images_on_ticket_id_and_weight"
+    t.index ["ticket_id"], name: "index_ticket_images_on_ticket_id"
   end
 
   create_table "tickets", force: :cascade do |t|
@@ -73,11 +85,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_30_173624) do
     t.string "gender"
     t.string "phone_number"
     t.integer "role"
+    t.string "uuid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "images", "tickets"
+  add_foreign_key "ticket_images", "tickets"
 end

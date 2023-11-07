@@ -1,0 +1,43 @@
+<div>
+  <div class="pull-right">
+    <%= form_tag admin_ticket_ticket_images_path(ticket_id: @ticket), method: :post, enctype: "multipart/form-data", class: "form-horizontal" do %>
+      <input type="file" name="ticket_images[]" multiple class="image-input" />
+      <%= submit_tag "上传", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <h1>
+  电影 #<%= @ticket.id %>
+  </h1>
+</div>
+
+<div>
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>图片</th>
+      <th>权重</th>
+      <th></th>
+    </tr>
+
+    <% @ticket_images.each do |ticket_image| %>
+      <tr>
+        <td><%= ticket_image.id %></td>
+        <td>
+        <%= image_tag ticket_image.image.variant(resize: "60x60^") if ticket_image.image.attached? %>
+        </td>
+
+        <td>
+        <%= form_tag admin_ticket_ticket_image_path(@ticket, ticket_image), method: :put do %>
+            <input type="text" value="<%= ticket_image.weight %>" name="weight" />
+            <%= submit_tag "更新", class: "btn btn-default btn-xs" %>
+          <% end %>
+        </td>
+        <td align="right">
+        <%= link_to "删除", admin_ticket_ticket_image_path(@ticket, ticket_image), method: :delete, 'data-confirm': "确认删除吗?" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>

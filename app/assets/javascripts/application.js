@@ -2,3 +2,4 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap-sprockets
+//= require home

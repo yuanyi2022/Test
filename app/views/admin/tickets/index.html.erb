@@ -40,6 +40,7 @@
         <td align="right">
           <%= link_to "编辑", edit_admin_ticket_path(ticket) %>
           <%= link_to "删除", admin_ticket_path(ticket), method: :delete, 'data-confirm': "确认删除吗?" %>
+          <%= link_to "图片管理", admin_ticket_ticket_images_path(ticket_id: ticket) %>
         </td>
       </tr>
     <% end -%>

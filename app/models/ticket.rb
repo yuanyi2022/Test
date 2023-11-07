@@ -12,21 +12,24 @@ class Ticket < ApplicationRecord
   validates :status, inclusion: { in: %w[on off], message: "状态必须是上架或下架" }
   validates :description, presence: { message: "描述不能为空" }
   before_create :set_uuid
-  has_one_attached :image
+  has_many :ticket_images, -> {order(weight: 'desc')}, dependent: :destroy
+  has_one :main_ticket_image, -> { order(weight: 'desc') },
+  class_name: 'TicketImage'
+  scope :onshelf, -> {where(status: Status::On)}
   module Status
     On = 'on'
     Off = 'off'
   end
   def small_image
-    image.variant(resize: "60x60^").processed
+    ticket_images.first.image.variant(resize: "60x60^").processed if ticket_images.attached?
   end
 
   def middle_image
-    image.variant(resize: "200x200^").processed
+    ticket_images.first.variant(resize: "200x200^").processed if ticket_images.attached?
   end
 
   def big_image
-    image.variant(resize: "960x").processed
+    ticket_images.first.variant(resize: "960x").processed if ticket_images.attached?
   end
   private
   def set_uuid

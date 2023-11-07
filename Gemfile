@@ -9,7 +9,8 @@ gem "rails", "~> 7.1.1"
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 # Gemfile
 gem 'kaminari'
-
+gem 'active_storage_validations'
+gem 'image_processing', '~> 1.2'
 
 # Use mysql as the database for Active Record
 gem "sqlite3"
@@ -47,7 +48,7 @@ gem "bootstrap-sass"
 gem "font-awesome-rails"
 gem "devise"
 gem 'mini_magick'
-
+gem 'ruby-vips', '~> 2.2'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

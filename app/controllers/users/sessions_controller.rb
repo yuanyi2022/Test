@@ -3,6 +3,7 @@
 class Users::SessionsController < Devise::SessionsController
   protected
   def after_sign_in_path_for(resource)
+    update_browser_uuid(resource.uuid)
     if resource.role == 'admin'  # 或者 `resource.admin?`，取决于你如何定义 'admin' 角色
       admin_root_path  # 这应该是你的管理员仪表盘或主页的路径
     else
