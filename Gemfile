@@ -68,9 +68,17 @@ group :development do
   # gem "spring"
 
 end
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platform: :mri
 
+  gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'rails-controller-testing'
+end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'factory_bot_rails'
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
