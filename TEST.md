@@ -42,3 +42,74 @@ git commit -m "message"
 git log
 git log --pretty=oneline
 ```
+## 回退操作
+```
+git reset --hard HEAD~
+git reset –hard <commit_id>
+```
+## 回到最新
+```
+git reflog
+git reset –hard <commit_id>
+```
+## 提取commit之间的差分(参考)
+```
+git diff 608e120 4abe32e --name-only
+git archive -o update.zip HEAD $(git diff --name-only 608e120 4abe32e)
+git diff 608e120 4abe32e --name-only | xargs zip update.zip
+```
+## 撤回push
+```
+git log
+git reset –-soft <commit_id>
+git push origin main --force
+```
+# 分支管理
+## 查看分支
+```
+git branch
+```
+## 创建分支
+```
+git branch <branch_name>
+```
+## 切换分支
+```
+git checkout <branch_name>
+```
+## 创建并切换到分支
+```
+git checkout -b <branch_name>
+```
+## 删除分支
+```
+git branch -d <branch_name>
+```
+## 合并分支
+```
+git merge 被合并的分支名
+```
+## 从主分支合并
+```
+git checkout main
+git pull
+git checkout current
+git merge main
+git push
+```
+# 代理
+## 使用代理
+```
+git config --global https.proxy http://127.0.0.1:1080
+git config --global https.proxy https://127.0.0.1:1080
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+
+代理服务器需要鉴权配置
+git config --global https.proxy https://username:password@proxy.com:8080
+```
+## 取消代理
+```
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
